@@ -1,25 +1,27 @@
-import logo from './logo.svg';
+
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
+import {BrowserRouter,Routes,Route} from 'react-router-dom';
+import Layout from './components/layout/Layout';
+import TransactionsApi from './components/api/TransactionsApi';
+import AccountsApi from './components/api/AccountsApi';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+  	return (
+		<BrowserRouter>
+				<Layout>
+					<Routes>
+						<Route path="/" element={<TransactionsApi/>}/>
+						<Route path="/transactions" element={<TransactionsApi/>}/>
+						<Route path="/accounts" element={<AccountsApi/>}/>
+						<Route path="/budget" element={<div>Transactions</div>}/>
+						<Route path="/portfolio" element={<div>Transactions</div>}/>
+					</Routes>
+				</Layout>
+		</BrowserRouter>
+   
+  	);
 }
 
 export default App;
