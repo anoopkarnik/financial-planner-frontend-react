@@ -57,3 +57,7 @@
 .icon, .link_text{
   font-size:20px;
 }
+
+.gray-button{
+  background: #C7C6C1;
+}

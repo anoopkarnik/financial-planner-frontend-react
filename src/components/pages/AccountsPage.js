@@ -2,23 +2,47 @@ import React,{useState,useEffect} from 'react'
 import "react-datepicker/dist/react-datepicker.css";
 import BodyList from '../reusable/BodyList';
 import TopBoxData from '../reusable/TopBoxData';
+import AddAccountForm from '../misc/Accounts/AddAccountForm';
+import { getTotalAccounts,getTotalSubAccounts,deleteAccount,
+  updateBalance,createAccount } from '../api/AccountAPI';
 
 const AccountsPage = (props) => {
 
-  
+	
+    const [subAccountOptions, setSubAccountOptions] = useState([]);
+    const [accountOptions, setAccountOptions] = useState([]);
+    const [showAddAccount,setShowAddAccount] = useState(false)
+
+    useEffect(() => {
+        refreshAccountsPage(props.userId,props.backend_url);
+      }, []);
+
+const refreshAccountsPage = async(userId,backend_url) =>{
+  var subAccounts = await getTotalSubAccounts(userId,backend_url);
+  var accounts = await getTotalAccounts(userId,backend_url);
+  setSubAccountOptions(subAccounts);
+  setAccountOptions(accounts);
+}
+
   return (
     <div>
-      {/* <div className='row mt-3'>
+      <div className='row mt-3'>
+			{accountOptions.map((account)=>(
 				<div className='col-sm'>
-					<TopBoxData name={totalExpenses} value={props.expenses}/>
+					<TopBoxData name={account.name} value={account.balance}/>
 				</div>
-			</div> */}
+			))}
+	  </div>
       <h3 className='mt-3 text-center'>Accounts</h3>
       <div className='row mt-3'>
 				<div className='col-sm'>
-					<BodyList records={props.subAccountOptions}/>
+					<BodyList name="Accounts" records={subAccountOptions} refreshFunction={refreshAccountsPage} 
+          deleteFunction={deleteAccount} editFunction={updateBalance} userId={props.userId} 
+          backend_url={props.backend_url}/>
 				</div>
 		  </div>
+      <h3 onClick={()=>{setShowAddAccount(!showAddAccount)}} className='mt-3 text-center'><div className='btn btn-secondary btn-lg'>Add Account</div></h3>
+      {showAddAccount?<AddAccountForm createAccount={createAccount} userId={props.userId} backend_url={props.backend_url} accountOptions={accountOptions}/>:null}
       
     </div>
   )

@@ -1,7 +1,7 @@
 import React from 'react';
 import {AiOutlineTransaction,AiFillShopping} from "react-icons/ai";
 import {MdAccountBalance} from "react-icons/md";
-import {FaBars, FaMoneyBill} from "react-icons/fa";
+import {FaBars, FaMoneyBill, FaAdn} from "react-icons/fa";
 import { NavLink} from 'react-router-dom';
 import { useState } from 'react';
 
@@ -29,6 +29,11 @@ const Sidebar = ({children}) => {
       path:"/portfolio",
       name:"Portfolio",
       icon:<FaMoneyBill/>
+    },
+    {
+      path:"/admin",
+      name:"Admin",
+      icon:<FaAdn/>
     }
   ]
   return (
