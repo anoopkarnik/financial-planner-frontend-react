@@ -16,11 +16,6 @@ const AdminPage = (props) => {
     const [accountOptions, setAccountOptions] = useState([]);
     const [categoryOptions, setCategoryOptions] = useState([]);
     const [subCategoryOptions, setSubCategoryOptions] = useState([]);
-    const [expense, setExpense] = useState('');
-    const [account, setAccount] = useState('');
-    const [category, setCategory] = useState('');
-    const [subCategory, setSubCategory] = useState('');
-
 
     useEffect(() => {
         refreshAdminPage(props.userId,props.backend_url);

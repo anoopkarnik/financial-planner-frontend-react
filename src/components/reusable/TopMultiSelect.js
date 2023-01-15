@@ -1,9 +1,5 @@
 import React from 'react'
 import {Multiselect} from "multiselect-react-dropdown";
-const expenseKey = "Expense Types";
-const accountKey = "Account Types";
-const categoryKey = "Category Types";
-const subCategoryKey = "Subcategory Types";
 
 const TopMultiSelect = (props) => {
     const onSelect = async(event) => {
