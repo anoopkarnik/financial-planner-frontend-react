@@ -11,9 +11,9 @@ const AddTransactionForm = (props) => {
 	const [subAccountName, setSubAccountName] = useState('');
 
 	const onSubmit =() =>{
-		console.log(props.userId,name,cost,expenseName,accountName,
+		console.log(props.userId,props.bearerToken,name,cost,expenseName,accountName,
 			categoryName,subCategoryName,subAccountName)
-		props.createTransaction(props.userId,props.backend_url,name,cost,expenseName,accountName,
+		props.createTransaction(props.userId,props.backend_url,props.bearerToken,name,cost,expenseName,accountName,
 			categoryName,subCategoryName,subAccountName);
 	}
 

@@ -13,7 +13,8 @@ const BodyList = (props) => {
           userId={props.userId} backend_url={props.backend_url} expenseTypes={props.expenseTypes} 
           accountTypes={props.accountTypes} categoryTypes={props.categoryTypes} 
           subCategoryTypes={props.subCategoryTypes} subAccountTypes={props.subAccountTypes} 
-          dateFrom={props.dateFrom} dateTo={props.dateTo}/>
+          dateFrom={props.dateFrom} dateTo={props.dateTo} 
+          bearerToken={props.bearerToken}/>
       ))}</div>
       </ul>
   )

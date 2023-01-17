@@ -34,16 +34,16 @@ const TransactionsPage = (props) => {
   const [expenses,setExpenses] = useState('');
 
   useEffect(() => {
-      refreshTransactionsPage(props.userId,props.backend_url);
+      refreshTransactionsPage(props.userId,props.backend_url,props.bearerToken);
     }, []);
 
 
-  const refreshTransactionsPage = async(userId,backend_url) =>{
-    const {expenses,expenseOptions} = await getTotalExpenses(backend_url);
-    const {accounts,accountOptions} = await getTotalAccounts(userId,backend_url);
-    const {categories,categoryOptions} = await getTotalCategories(backend_url);
-    const {subCategories,subCategoryOptions} = await getTotalSubCategories(backend_url);
-    const {subAccounts,subAccountOptions} = await getTotalSubAccounts(userId,backend_url);
+  const refreshTransactionsPage = async(userId,backend_url,bearerToken) =>{
+    const {expenses,expenseOptions} = await getTotalExpenses(backend_url,bearerToken);
+    const {accounts,accountOptions} = await getTotalAccounts(backend_url,bearerToken);
+    const {categories,categoryOptions} = await getTotalCategories(backend_url,bearerToken);
+    const {subCategories,subCategoryOptions} = await getTotalSubCategories(backend_url,bearerToken);
+    const {subAccounts,subAccountOptions} = await getTotalSubAccounts(userId,backend_url,bearerToken);
     var date = new Date()
     var dateFrom = DateToString(new Date())
     var dateTo = DateToString(new Date(date.setMonth(date.getMonth()+1)))
@@ -59,14 +59,14 @@ const TransactionsPage = (props) => {
     setSubAccountOptions(subAccountOptions);
     setDateFrom(dateFrom);
     setDateTo(dateTo);
-    await refreshTransactions(userId,backend_url,expenses,accounts,
+    await refreshTransactions(userId,backend_url,bearerToken,expenses,accounts,
       categories,subCategories,dateFrom,dateTo)
   }
 
-  const refreshTransactions = async(userId=props.userId,backend_url=props.backend_url,
+  const refreshTransactions = async(userId=props.userId,backend_url=props.backend_url,bearerToken=props.bearerToken,
     expenses=expenseTypes,accounts=accountTypes,categories=categoryTypes,
     subCategories=subCategoryTypes,dateFrom=dateFrom,dateTo=dateTo)=>{
-      const {expense,transactions} = await getTransactions(userId,backend_url,expenses,accounts,
+      const {expense,transactions} = await getTransactions(userId,backend_url,bearerToken,expenses,accounts,
         categories,subCategories,dateFrom,dateTo)
         setExpenses(expense);
         setTransactions(transactions);
@@ -83,34 +83,34 @@ const TransactionsPage = (props) => {
       <h3 className='mt-3 text-center'>Transactions</h3>
       <div className='row mt-3'>
         <TopMultiSelect name="Expense Types" values={expenseOptions} refreshTransactions={refreshTransactions} 
-        userId={props.userId} backend_url={props.backend_url} expenseTypes={expenseTypes} 
+        userId={props.userId} backend_url={props.backend_url} bearerToken={props.bearerToken} expenseTypes={expenseTypes} 
         accountTypes={accountTypes} categoryTypes={categoryTypes} 
         subCategoryTypes={subCategoryTypes} subAccountTypes={subAccountTypes} 
         dateFrom={dateFrom} dateTo={dateTo}/>
         <TopMultiSelect name="Account Types" values={accountOptions} refreshTransactions={refreshTransactions} 
-        userId={props.userId} backend_url={props.backend_url} expenseTypes={expenseTypes} 
+        userId={props.userId} backend_url={props.backend_url} bearerToken={props.bearerToken} expenseTypes={expenseTypes} 
         accountTypes={accountTypes} categoryTypes={categoryTypes} 
         subCategoryTypes={subCategoryTypes} subAccountTypes={subAccountTypes} 
         dateFrom={dateFrom} dateTo={dateTo}/>
         <TopMultiSelect name="Category Types" values={categoryOptions} refreshTransactions={refreshTransactions} 
-        userId={props.userId} backend_url={props.backend_url} expenseTypes={expenseTypes} 
+        userId={props.userId} backend_url={props.backend_url} bearerToken={props.bearerToken} expenseTypes={expenseTypes} 
         accountTypes={accountTypes} categoryTypes={categoryTypes} 
         subCategoryTypes={subCategoryTypes} subAccountTypes={subAccountTypes} 
         dateFrom={dateFrom} dateTo={dateTo}/>
       </div>
       <div className='row mt-3'>
       <TopMultiSelect name="Subcategory Types" values={subCategoryOptions} refreshTransactions={refreshTransactions} 
-        userId={props.userId} backend_url={props.backend_url} expenseTypes={expenseTypes} 
+        userId={props.userId} backend_url={props.backend_url} bearerToken={props.bearerToken} expenseTypes={expenseTypes} 
         accountTypes={accountTypes} categoryTypes={categoryTypes} 
         subCategoryTypes={subCategoryTypes} subAccountTypes={ subAccountTypes} 
         dateFrom={dateFrom} dateTo={dateTo}/>
        <DatePick name={startDateKey} refreshTransactions={refreshTransactions} 
-        userId={props.userId} backend_url={props.backend_url} expenseTypes={expenseTypes} 
+        userId={props.userId} backend_url={props.backend_url} bearerToken={props.bearerToken} expenseTypes={expenseTypes} 
         accountTypes={accountTypes} categoryTypes={categoryTypes} 
         subCategoryTypes={subCategoryTypes} subAccountTypes={ subAccountTypes} 
         dateFrom={dateFrom} dateTo={dateTo}/>
         <DatePick name={endDateKey} refreshTransactions={refreshTransactions} 
-        userId={props.userId} backend_url={props.backend_url} expenseTypes={expenseTypes} 
+        userId={props.userId} backend_url={props.backend_url} bearerToken={props.bearerToken} expenseTypes={expenseTypes} 
         accountTypes={accountTypes} categoryTypes={categoryTypes} 
         subCategoryTypes={subCategoryTypes} subAccountTypes={ subAccountTypes} 
         dateFrom={dateFrom} dateTo={dateTo}/>
@@ -119,14 +119,14 @@ const TransactionsPage = (props) => {
 				<div className='col-sm'>
 					<BodyList name="Transactions" records={transactions} deleteFunction={deleteTransaction} 
           refreshFunction={refreshTransactions} 
-          userId={props.userId} backend_url={props.backend_url} expenseTypes={expenseTypes} 
+          userId={props.userId} backend_url={props.backend_url} bearerToken={props.bearerToken} expenseTypes={expenseTypes} 
           accountTypes={accountTypes} categoryTypes={categoryTypes} 
           subCategoryTypes={subCategoryTypes} subAccountTypes={subAccountTypes} 
           dateFrom={dateFrom} dateTo={dateTo}/>
 				</div>
 		  </div>
       <h3 onClick={()=>{setShowAddTransaction(!showAddTransaction)}} className='mt-3 text-center'><div className='btn btn-secondary btn-lg'>Add Transaction</div></h3>
-      {showAddTransaction?<AddTransactionForm createTransaction={createTransaction} userId={props.userId} backend_url={props.backend_url} expenseOptions={expenseOptions} accountOptions={accountOptions} categoryOptions={categoryOptions} subCategoryOptions={subCategoryOptions} subAccountOptions={subAccountOptions}/>:null}
+      {showAddTransaction?<AddTransactionForm createTransaction={createTransaction} userId={props.userId} backend_url={props.backend_url} bearerToken={props.bearerToken} expenseOptions={expenseOptions} accountOptions={accountOptions} categoryOptions={categoryOptions} subCategoryOptions={subCategoryOptions} subAccountOptions={subAccountOptions}/>:null}
     </div>
   )
 }

@@ -12,23 +12,23 @@ const FundItem = (props) => {
 
   const onEditAllocated = async() =>{
 		if(isEditingAllocated){
-			await updateAmountAllocated(props.item.id,props.backend_url,amountAllocated)
-      await props.refreshFunction(props.userId,props.backend_url)
+			await updateAmountAllocated(props.item.id,props.backend_url,props.bearerToken,amountAllocated)
+      await props.refreshFunction(props.userId,props.backend_url,props.bearerToken)
 		}
 		setIsEditingAllocated(!isEditingAllocated);
 	}
 
   const onEditNeeded = async() =>{
 		if(isEditingNeeded){
-			await updateAmountNeeded(props.item.id,props.backend_url,amountNeeded)
-      await props.refreshFunction(props.userId,props.backend_url)
+			await updateAmountNeeded(props.item.id,props.backend_url,props.bearerToken,amountNeeded)
+      await props.refreshFunction(props.userId,props.backend_url,props.bearerToken)
 		}
 		setIsEditingNeeded(!isEditingNeeded);
 	}
 
   const onDelete = async() =>{
-    await deleteFunds(props.backend_url,props.item.id)
-    await props.refreshFunction(props.userId,props.backend_url)
+    await deleteFunds(props.backend_url,props.bearerToken,props.item.id)
+    await props.refreshFunction(props.userId,props.backend_url,props.bearerToken)
   } 
 
 

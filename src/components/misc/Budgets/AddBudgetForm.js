@@ -9,9 +9,9 @@ const AddBudgetForm = (props) => {
 	const [subCategoryName, setSubCategoryName] = useState('');
 
 	const onSubmit =() =>{
-		console.log(props.userId,name,cost,expenseName,
+		console.log(props.userId,props.bearerToken,name,cost,expenseName,
 			categoryName,subCategoryName)
-		props.createBudget(props.userId,props.backend_url,name,cost,expenseName,
+		props.createBudget(props.userId,props.backend_url,props.bearerToken,name,cost,expenseName,
 			categoryName,subCategoryName);
 	}
 

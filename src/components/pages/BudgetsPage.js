@@ -21,16 +21,16 @@ const AccountsPage = (props) => {
     const [showAddIncome, setShowAddIncome] = useState(false);
 
     useEffect(() => {
-        refreshBudgetsPage(props.userId,props.backend_url);
+        refreshBudgetsPage(props.userId,props.backend_url,props.bearerToken);
       }, []);
 
-const refreshBudgetsPage = async(userId,backend_url) =>{
-  var budget_plans = await getBudgetPlans(userId,backend_url);
-  const {expenses,expenseOptions} = await getTotalExpenses(backend_url);
-  const {accounts,accountOptions} = await getTotalAccounts(userId,backend_url);
-  const {categories,categoryOptions} = await getTotalCategories(backend_url);
-  const {subCategories,subCategoryOptions} = await getTotalSubCategories(backend_url);
-  const {subAccounts,subAccountOptions} = await getTotalSubAccounts(userId,backend_url);
+const refreshBudgetsPage = async(userId,backend_url,bearerToken) =>{
+  var budget_plans = await getBudgetPlans(userId,backend_url,bearerToken);
+  const {expenses,expenseOptions} = await getTotalExpenses(backend_url,bearerToken);
+  const {accounts,accountOptions} = await getTotalAccounts(backend_url,bearerToken);
+  const {categories,categoryOptions} = await getTotalCategories(backend_url,bearerToken);
+  const {subCategories,subCategoryOptions} = await getTotalSubCategories(backend_url,bearerToken);
+  const {subAccounts,subAccountOptions} = await getTotalSubAccounts(userId,backend_url,bearerToken);
   setBudgetPlans(budget_plans);
   setExpenseOptions(expenseOptions);
   setAccountOptions(accountOptions);    
@@ -47,7 +47,8 @@ const refreshBudgetsPage = async(userId,backend_url) =>{
 				<div className='col-sm'>
 					<TopBoxPercentage refreshFunction={refreshBudgetsPage} name={budgetPlan.expenseName} value1={budgetPlan.transactionPercentage} 
           id={budgetPlan.id} value2={budgetPlan.planPercentage} 
-          userId={props.userId} backend_url={props.backend_url}/>
+          userId={props.userId} backend_url={props.backend_url} 
+          bearerToken={props.bearerToken}/>
 				</div>
 			))}
       <h3 className='mt-3 text-center'>Budget</h3>
@@ -56,7 +57,7 @@ const refreshBudgetsPage = async(userId,backend_url) =>{
 				<div className='row mt-3'>
 					<BudgetList refreshFunction={refreshBudgetsPage} name={budgetPlan.expenseName} value1={budgetPlan.transactionTotal} 
           value2={budgetPlan.planTotal} value3={budgetPlan.allottedTotal} userId={props.userId} 
-          backend_url={props.backend_url} accountOptions={accountOptions} 
+          backend_url={props.backend_url}  bearerToken={props.bearerToken} accountOptions={accountOptions} 
           subAccountOptions={subAccountOptions}/>
 				</div>
 			))}

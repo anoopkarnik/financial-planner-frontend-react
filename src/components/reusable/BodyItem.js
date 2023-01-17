@@ -9,8 +9,8 @@ const BodyItem = (props) => {
 	const onEdit = async() =>{
 		if(props.name==="Accounts"){
 			if(isEditing){
-				await props.editFunction(props.record.id,props.backend_url,balance)
-				await props.refreshFunction(props.userId,props.backend_url)
+				await props.editFunction(props.record.id,props.backend_url,props.bearerToken,balance)
+				await props.refreshFunction(props.userId,props.backend_url,props.bearerToken)
 			}
 			setIsEditing(!isEditing);
 		}
@@ -20,13 +20,13 @@ const BodyItem = (props) => {
 	const onDelete = async() =>{
 		if(props.name==="Transactions"){
 			await props.deleteFunction(props.backend_url,props.record.id)
-			await props.refreshFunction(props.userId,props.backend_url,props.expenseTypes,
+			await props.refreshFunction(props.userId,props.backend_url,props.bearerToken,props.expenseTypes,
 				props.accountTypes,	props.categoryTypes,props.subCategoryTypes,
 				props.dateFrom,props.dateTo)
 			}
 		else if(props.name==="Accounts"){
-			await props.deleteFunction(props.backend_url,props.record.id)
-			await props.refreshFunction(props.userId,props.backend_url)
+			await props.deleteFunction(props.backend_url,props.bearerToken,props.record.id)
+			await props.refreshFunction(props.userId,props.backend_url,props.bearerToken)
 		}
 	}
   return (

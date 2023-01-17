@@ -13,12 +13,12 @@ const FundsPage = (props) => {
 
 
     useEffect(() => {
-        refreshBudgetsPage(props.userId,props.backend_url);
+        refreshBudgetsPage(props.userId,props.backend_url,props.bearerToken);
       }, []);
 
-const refreshBudgetsPage = async(userId,backend_url) =>{
-  var fund_list = await getFunds(userId,backend_url);
-  var fund_summary = await getFundSummary(userId,backend_url);
+const refreshBudgetsPage = async(userId,backend_url,bearerToken) =>{
+  var fund_list = await getFunds(userId,backend_url,bearerToken);
+  var fund_summary = await getFundSummary(userId,backend_url,bearerToken);
   setFunds(fund_list)
   setFundSummary(fund_summary)
 
@@ -54,12 +54,13 @@ const refreshBudgetsPage = async(userId,backend_url) =>{
         {funds.map((fund)=>(
 					<FundItem item={fund}
           refreshFunction={refreshBudgetsPage} 
-          userId={props.userId} backend_url={props.backend_url}/>
+          userId={props.userId} backend_url={props.backend_url} 
+          bearerToken={props.bearerToken}/>
         ))}
 				</div>
 		  </div>
       <h3 onClick={()=>{setShowAddFund(!showAddFund)}} className='mt-3 text-center'><div className='btn btn-secondary btn-lg'>Add Fund</div></h3>
-      {showAddFund?<AddFundForm backend_url={props.backend_url} 
+      {showAddFund?<AddFundForm backend_url={props.backend_url}  bearerToken={props.bearerToken} 
       userId={props.userId}/>:null}
     </div>
   )

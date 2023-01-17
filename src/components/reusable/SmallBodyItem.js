@@ -8,15 +8,15 @@ const SmallBodyItem = (props) => {
 
 	const onEdit = async() =>{
         if(isEditing){
-            await props.editFunction(props.backend_url,props.record.id,name)
-		    await props.refreshFunction(props.userId,props.backend_url)
+            await props.editFunction(props.backend_url,props.bearerToken,props.record.id,name)
+		    await props.refreshFunction(props.userId,props.backend_url,props.bearerToken)
         }
         setIsEditing(!isEditing);
 	}
 
 	const onDelete = async() =>{
-        await props.deleteFunction(props.backend_url,props.record.id)
-		await props.refreshFunction(props.userId,props.backend_url)
+        await props.deleteFunction(props.backend_url,props.bearerToken,props.record.id)
+		await props.refreshFunction(props.userId,props.backend_url,props.bearerToken)
 	}
 
     

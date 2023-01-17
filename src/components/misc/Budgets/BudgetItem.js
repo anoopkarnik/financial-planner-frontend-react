@@ -11,9 +11,9 @@ const BudgetItem = (props) => {
 
   const onEdit = async() =>{
 		if(isEditing){
-			await updateCost(props.item.id,props.backend_url,cost)
+			await updateCost(props.item.id,props.backend_url,props.bearerToken,cost)
 			await props.onShow()
-      await props.refreshFunction(props.userId,props.backend_url)
+      await props.refreshFunction(props.userId,props.backend_url,props.bearerToken)
 		}
 		setIsEditing(!isEditing);
 	}

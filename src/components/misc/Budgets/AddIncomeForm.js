@@ -6,8 +6,8 @@ const AddIncomeForm = (props) => {
 	const [income, setIncome] = useState('');
 
 	const onSubmit =() =>{
-		console.log(props.userId,name,income)
-		props.createIncome(props.userId,props.backend_url,name,income);
+		console.log(props.userId,props.bearerToken,name,income)
+		props.createIncome(props.userId,props.backend_url,props.bearerToken,name,income);
 	}
 
 	return (

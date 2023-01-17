@@ -8,7 +8,7 @@ const BudgetList = (props) => {
     const [items,setItems] = useState([])
 
     const onShow = async() =>{
-        const monthlyBudgets = await getMonthlyBudget(props.userId,props.name,props.backend_url)
+        const monthlyBudgets = await getMonthlyBudget(props.userId,props.name,props.backend_url,props.bearerToken)
         setItems(monthlyBudgets);
     };
 
@@ -34,7 +34,7 @@ const BudgetList = (props) => {
 	  				<ul className='list-group'>
 						{items.map((item)=>(
               <BudgetItem item={item} userId={props.userId} 
-              backend_url={props.backend_url} 
+              backend_url={props.backend_url} bearerToken={props.bearerToken} 
               refreshFunction={props.refreshFunction} onShow={onShow} 
               accountOptions={props.accountOptions} 
               subAccountOptions={props.subAccountOptions}/>

@@ -8,8 +8,8 @@ const AddFundForm = (props) => {
 	const [amountNeeded, setAmountNeeded] = useState('');
 
 	const onSubmit = async () =>{
-		console.log(props.userId,name,amountAllocated,amountNeeded)
-		await createFund(props.userId,props.backend_url,name,
+		console.log(props.userId,props.bearerToken,name,amountAllocated,amountNeeded)
+		await createFund(props.userId,props.backend_url,props.bearerToken,name,
 			amountAllocated,amountNeeded);
 	}
 

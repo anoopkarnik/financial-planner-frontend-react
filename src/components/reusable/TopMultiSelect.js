@@ -9,22 +9,22 @@ const TopMultiSelect = (props) => {
                 selectedValues.push(event[i].name)
             }
             if(props.name=="Expense Types"){
-              props.refreshTransactions(props.userId,props.backend_url,selectedValues,props.accountTypes,
+              props.refreshTransactions(props.userId,props.backend_url,props.bearerToken,selectedValues,props.accountTypes,
                 props.categoryTypes,props.subCategoryTypes,
                 props.dateFrom,props.dateTo)
             }
             else if(props.name=="Account Types"){
-              props.refreshTransactions(props.userId,props.backend_url,props.expenseTypes,selectedValues,
+              props.refreshTransactions(props.userId,props.backend_url,props.bearerToken,props.expenseTypes,selectedValues,
                 props.categoryTypes,props.subCategoryTypes,
                 props.dateFrom,props.dateTo)
             }
             else if(props.name=="Category Types"){
-              props.refreshTransactions(props.userId,props.backend_url,props.expenseTypes,props.accountTypes,
+              props.refreshTransactions(props.userId,props.backend_url,props.bearerToken,props.expenseTypes,props.accountTypes,
                 selectedValues,props.subCategoryTypes,
                 props.dateFrom,props.dateTo)
             }
             else if(props.name=="Subcategory Types"){
-              props.refreshTransactions(props.userId,props.backend_url,props.expenseTypes,props.accountTypes,
+              props.refreshTransactions(props.userId,props.backend_url,props.bearerToken,props.expenseTypes,props.accountTypes,
                 props.categoryTypes,selectedValues,
                 props.dateFrom,props.dateTo)
             };

@@ -8,8 +8,8 @@ const SmallBodyList = (props) => {
 
 
   const onCreate = async() =>{
-    await props.createFunction(props.backend_url,newName)
-    await props.refreshFunction(props.userId,props.backend_url)
+    await props.createFunction(props.backend_url,props.bearerToken,newName)
+    await props.refreshFunction(props.userId,props.backend_url,props.bearerToken)
     setKey('Add '+props.name);
 }
 
@@ -24,7 +24,8 @@ const SmallBodyList = (props) => {
           deleteFunction={props.deleteFunction} 
           refreshFunction={props.refreshFunction} 
           editFunction={props.editFunction}
-          userId={props.userId} backend_url={props.backend_url}/>
+          userId={props.userId} backend_url={props.backend_url} 
+          bearerToken={props.bearerToken}/>
       ))}</div>
       <div>
         <li className='list-group-item d-flex justify-content-between align-items-center'>

@@ -9,7 +9,7 @@ const AddAccountForm = (props) => {
 	const [freeLiquidity, setFreeLiquidity] = useState('');
 
 	const onSubmit =() =>{
-		props.createAccount(props.userId,props.backend_url,name,balance,
+		props.createAccount(props.userId,props.backend_url,props.bearerToken,name,balance,
 			accountName,liquidity,freeLiquidity);
 	}
 

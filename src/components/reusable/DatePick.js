@@ -12,14 +12,14 @@ const DatePick = (props) => {
     const onChange= async(date) => {
         if(props.name==="Start Date"){
           setStartDate(date)
-            props.refreshTransactions(props.userId,props.backend_url,props.expenseTypes,
+            props.refreshTransactions(props.userId,props.backend_url,props.bearerToken,props.expenseTypes,
               props.accountTypes,
               props.categoryTypes,props.subCategoryTypes,
               date,props.dateTo)
           }
         else if(props.name==="End Date"){
           setEndDate(date)
-            props.refreshTransactions(props.userId,props.backend_url,props.expenseTypes,
+            props.refreshTransactions(props.userId,props.backend_url,props.bearerToken,props.expenseTypes,
               props.accountTypes,
               props.categoryTypes,props.subCategoryTypes,
               props.dateFrom,date)

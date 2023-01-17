@@ -1,8 +1,13 @@
 import axios from 'axios';
 
 
-export const getTotalExpenses = async(backend_url) =>{
-    const res = await fetch(backend_url+'/commons/expenses')
+export const getTotalExpenses = async(backend_url,bearerToken) =>{
+    const res = await fetch(backend_url+'/api/commons/expenses',{
+      method: 'GET',
+      headers:{
+        'Authorization':bearerToken
+      }
+    })
     const data = await res.json()
     var names = new Array();
     var options = new Array();
@@ -12,8 +17,13 @@ export const getTotalExpenses = async(backend_url) =>{
     }  
     return {expenses:names,expenseOptions:options}
 }
-export const getTotalAccounts = async(userId,backend_url) =>{
-    const res = await fetch(backend_url+'/commons/accounts?userId='+userId)
+export const getTotalAccounts = async(backend_url,bearerToken) =>{
+    const res = await fetch(backend_url+'/api/commons/accounts',{
+      method: 'GET',
+      headers:{
+        'Authorization':bearerToken
+      }
+    })
     const data = await res.json()
     var names = new Array();
     var options = new Array();
@@ -24,8 +34,13 @@ export const getTotalAccounts = async(userId,backend_url) =>{
     return {accounts:names,accountOptions:options}
 }
 
-export const getTotalCategories = async(backend_url) =>{
-    const res = await fetch(backend_url+'/commons/categories')
+export const getTotalCategories = async(backend_url,bearerToken) =>{
+    const res = await fetch(backend_url+'/api/commons/categories',{
+      method: 'GET',
+      headers:{
+        'Authorization':bearerToken
+      }
+    })
     const data = await res.json()
     var names = new Array();
     var options = new Array();
@@ -37,8 +52,13 @@ export const getTotalCategories = async(backend_url) =>{
 }
 
 
-export const getTotalSubCategories = async(backend_url) =>{
-    const res = await fetch(backend_url+'/commons/subCategories')
+export const getTotalSubCategories = async(backend_url,bearerToken) =>{
+    const res = await fetch(backend_url+'/api/commons/subCategories',{
+      method: 'GET',
+      headers:{
+        'Authorization':bearerToken
+      }
+    })
     const data = await res.json()
     var names = new Array();
     var options = new Array();
@@ -49,8 +69,13 @@ export const getTotalSubCategories = async(backend_url) =>{
     return {subCategories:names,subCategoryOptions:options}
 }
 
-export const getTotalSubAccounts = async(userId,backend_url) =>{
-  const res = await fetch(backend_url+'/accounts/2?user='+userId)
+export const getTotalSubAccounts = async(userId,backend_url,bearerToken) =>{
+  const res = await fetch(backend_url+'/api/accounts/2?user='+userId,{
+    method: 'GET',
+    headers:{
+      'Authorization':bearerToken
+    }
+  })
   if(res.status===200){
     const data = await res.json()
     var names = new Array();
@@ -69,11 +94,12 @@ export const getTotalSubAccounts = async(userId,backend_url) =>{
 
 
 
-export const getTransactions = async(userId,backend_url,expenseTypes,accountTypes,categoryTypes,subCategoryTypes,dateFrom,dateTo) =>{
-    const res = await fetch(backend_url+'/transactions', {
+export const getTransactions = async(userId,backend_url,bearerToken,expenseTypes,accountTypes,categoryTypes,subCategoryTypes,dateFrom,dateTo) =>{
+    const res = await fetch(backend_url+'/api/transactions', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization':bearerToken
       },
       body: JSON.stringify({userId,expenseTypes,accountTypes,categoryTypes,subCategoryTypes,dateFrom,dateTo}),
     })
@@ -91,12 +117,13 @@ export const getTransactions = async(userId,backend_url,expenseTypes,accountType
     return {expense:expense,transactions:data}
 }
 
-export const createTransaction = async(userId,backend_url,name,cost,expenseName,accountName,
+export const createTransaction = async(userId,backend_url,bearerToken,name,cost,expenseName,accountName,
   categoryName,subCategoryName,subAccountName) =>{
-  const res = await fetch(backend_url+'/transactions', {
+  const res = await fetch(backend_url+'/api/transactions', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      'Authorization':bearerToken
     },
     body: JSON.stringify({userId,name,cost,expenseName,accountName,
       categoryName,subCategoryName,subAccountName}),
@@ -106,6 +133,8 @@ export const createTransaction = async(userId,backend_url,name,cost,expenseName,
   return data
 }
 
-export const deleteTransaction = async(backend_url,id) =>{
-await axios.delete(backend_url+'/transactions?id='+id)
+export const deleteTransaction = async(backend_url,bearerToken,id) =>{
+await axios.delete(backend_url+'/api/transactions?id='+id,{
+  headers:{Authorization:bearerToken}
+})
 };

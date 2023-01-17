@@ -10,8 +10,8 @@ const TopBoxPercentage = (props) => {
 
   const onEdit = async() =>{
 		if(isEditing){
-			await updatePlanPercentage(props.id,props.backend_url,planPercentage)
-			await props.refreshFunction(props.userId,props.backend_url)
+			await updatePlanPercentage(props.id,props.backend_url,props.bearerToken,planPercentage)
+			await props.refreshFunction(props.userId,props.backend_url,props.bearerToken)
 		}
 		setIsEditing(!isEditing);
 	}
