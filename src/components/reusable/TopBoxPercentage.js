@@ -1,5 +1,6 @@
-import React,{useState} from 'react'
+import React,{useState,useContext} from 'react'
 import { updatePlanPercentage } from '../api/BudgetAPI';
+import { UserContext } from '../../context/UserContext';
 
 
 
@@ -7,11 +8,12 @@ const TopBoxPercentage = (props) => {
 
   const [isEditing,setIsEditing] = useState(false);
   const [planPercentage,setPlanPercentage] = useState(props.value2);
+  const {user, setUser} = useContext(UserContext);
 
   const onEdit = async() =>{
 		if(isEditing){
-			await updatePlanPercentage(props.id,props.backend_url,props.bearerToken,planPercentage)
-			await props.refreshFunction(props.userId,props.backend_url,props.bearerToken)
+			await updatePlanPercentage(props.id,props.backend_url,'Bearer '+user.accessToken,planPercentage)
+			await props.refreshFunction(user.id,props.backend_url,'Bearer '+user.accessToken)
 		}
 		setIsEditing(!isEditing);
 	}

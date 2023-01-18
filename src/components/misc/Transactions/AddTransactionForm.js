@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState,useContext } from 'react';
+import { UserContext } from '../../../context/UserContext';
 
 const AddTransactionForm = (props) => {
 
@@ -9,11 +10,12 @@ const AddTransactionForm = (props) => {
 	const [subCategoryName, setSubCategoryName] = useState('');
 	const [accountName, setAccountName] = useState('');
 	const [subAccountName, setSubAccountName] = useState('');
+	const {user, setUser} = useContext(UserContext);
 
 	const onSubmit =() =>{
-		console.log(props.userId,props.bearerToken,name,cost,expenseName,accountName,
+		console.log(user.id,'Bearer '+user.accessToken,name,cost,expenseName,accountName,
 			categoryName,subCategoryName,subAccountName)
-		props.createTransaction(props.userId,props.backend_url,props.bearerToken,name,cost,expenseName,accountName,
+		props.createTransaction(user.id,props.backend_url,'Bearer '+user.accessToken,name,cost,expenseName,accountName,
 			categoryName,subCategoryName,subAccountName);
 	}
 
@@ -121,9 +123,9 @@ const AddTransactionForm = (props) => {
 			</div>
 			<div className='row'>
 				<div className='col-sm text-center'>
-					<button type='submit' className='btn btn-secondary mt-3'>
+					<button  type='submit' className='btn btn-secondary mt-3'>
 						Save
-					</button>
+					</button >
 				</div>
 			</div>
 		</form>

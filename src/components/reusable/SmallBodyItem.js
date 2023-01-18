@@ -1,22 +1,24 @@
-import React,{useState} from 'react'
+import React,{useState,useContext} from 'react'
 import { TiDelete } from 'react-icons/ti';
+import { UserContext } from '../../context/UserContext';
 
 const SmallBodyItem = (props) => {
 
 	const [isEditing,setIsEditing] = useState(false);
 	const [name,setName] = useState(props.record.name);
+	const {user,setUser} = useContext(UserContext);
 
 	const onEdit = async() =>{
         if(isEditing){
-            await props.editFunction(props.backend_url,props.bearerToken,props.record.id,name)
-		    await props.refreshFunction(props.userId,props.backend_url,props.bearerToken)
+            await props.editFunction(props.backend_url,'Bearer '+user.accessToken,props.record.id,name)
+		    await props.refreshFunction(user.id,props.backend_url,'Bearer '+user.accessToken)
         }
         setIsEditing(!isEditing);
 	}
 
 	const onDelete = async() =>{
-        await props.deleteFunction(props.backend_url,props.bearerToken,props.record.id)
-		await props.refreshFunction(props.userId,props.backend_url,props.bearerToken)
+        await props.deleteFunction(props.backend_url,'Bearer '+user.accessToken,props.record.id)
+		await props.refreshFunction(user.id,props.backend_url,'Bearer '+user.accessToken)
 	}
 
     

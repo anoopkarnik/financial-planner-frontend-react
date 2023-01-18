@@ -1,15 +1,17 @@
-import React,{useState} from 'react'
+import React,{useState,useContext} from 'react'
 import SmallBodyItem from './SmallBodyItem'
+import { UserContext } from '../../context/UserContext';
 
 const SmallBodyList = (props) => {
 
   const [newName,setNewName] = useState('');
   const [key,setKey] = useState('Add '+props.name)
+  const {user, setUser} = useContext(UserContext);
 
 
   const onCreate = async() =>{
-    await props.createFunction(props.backend_url,props.bearerToken,newName)
-    await props.refreshFunction(props.userId,props.backend_url,props.bearerToken)
+    await props.createFunction(props.backend_url,'Bearer '+user.accessToken,newName)
+    await props.refreshFunction(user.id,props.backend_url,'Bearer '+user.accessToken)
     setKey('Add '+props.name);
 }
 
@@ -24,8 +26,7 @@ const SmallBodyList = (props) => {
           deleteFunction={props.deleteFunction} 
           refreshFunction={props.refreshFunction} 
           editFunction={props.editFunction}
-          userId={props.userId} backend_url={props.backend_url} 
-          bearerToken={props.bearerToken}/>
+          backend_url={props.backend_url}/>
       ))}</div>
       <div>
         <li className='list-group-item d-flex justify-content-between align-items-center'>

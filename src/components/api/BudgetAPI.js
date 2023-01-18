@@ -78,3 +78,25 @@ export const updatePlanPercentage= async(id,backend_url,bearerToken,planPercenta
     }
   })
   }
+
+  export const getIncomes = async(userId,backend_url,bearerToken) =>{
+    const res = await fetch(backend_url+'/api/budget/income?userId='+userId, {
+      method: 'GET',
+      headers: {
+        'Authorization':bearerToken
+      }
+    })
+    if(res.status===200 | res.status ===201){
+      var data = await res.json()
+    }
+    else{
+      var data=[];
+    }
+    return data
+}
+
+export const deleteIncome = async(backend_url,bearerToken,id) =>{
+  await axios.delete(backend_url+'/api/budget/income?id='+id,{
+    headers:{Authorization:bearerToken}
+  })
+}

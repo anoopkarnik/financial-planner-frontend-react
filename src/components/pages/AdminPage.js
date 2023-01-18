@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react'
+import React,{useState,useEffect,useContext} from 'react'
 import "react-datepicker/dist/react-datepicker.css";
 import { getTotalAccounts,getTotalExpenses,getTotalCategories,
 getTotalSubCategories } from '../api/TransactionAPI';
@@ -7,7 +7,7 @@ createSubCategory,deleteAccount1,deleteCategory,
 deleteExpense,deleteSubCategory,editAccount,
 editCategory,editExpense,editSubCategory } from '../api/AdminAPI';
 import SmallBodyList from '../reusable/SmallBodyList';
-
+import { UserContext } from '../../context/UserContext';
 
 const AdminPage = (props) => {
 
@@ -16,9 +16,10 @@ const AdminPage = (props) => {
     const [accountOptions, setAccountOptions] = useState([]);
     const [categoryOptions, setCategoryOptions] = useState([]);
     const [subCategoryOptions, setSubCategoryOptions] = useState([]);
+    const {user, setUser} = useContext(UserContext);
 
     useEffect(() => {
-        refreshAdminPage(props.userId,props.backend_url,props.bearerToken);
+        refreshAdminPage(user.id,props.backend_url,'Bearer '+user.accessToken);
       }, []);
 
     const refreshAdminPage = async(userId,backend_url,bearerToken) =>{
@@ -42,33 +43,29 @@ const AdminPage = (props) => {
 					<SmallBodyList name="Expenses" records={expenseOptions} 
           createFunction={createExpense} 
           refreshFunction={refreshAdminPage} 
-          deleteFunction={deleteExpense} editFunction={editExpense} userId={props.userId} 
-          backend_url={props.backend_url} 
-          bearerToken={props.bearerToken}/>
+          deleteFunction={deleteExpense} editFunction={editExpense}
+          backend_url={props.backend_url} />
 				</div>
         <div className='col-sm'>
 					<SmallBodyList name="Accounts" records={accountOptions} 
           createFunction={createAccount} 
           refreshFunction={refreshAdminPage} 
-          deleteFunction={deleteAccount1} editFunction={editAccount} userId={props.userId} 
-          backend_url={props.backend_url} 
-          bearerToken={props.bearerToken}/>
+          deleteFunction={deleteAccount1} editFunction={editAccount} 
+          backend_url={props.backend_url}/>
 				</div>
         <div className='col-sm'>
 					<SmallBodyList name="Categories" records={categoryOptions} 
           createFunction={createCategory}  
           refreshFunction={refreshAdminPage} 
-          deleteFunction={deleteCategory} editFunction={editCategory} userId={props.userId} 
-          backend_url={props.backend_url} 
-          bearerToken={props.bearerToken}/>
+          deleteFunction={deleteCategory} editFunction={editCategory}
+          backend_url={props.backend_url}/>
 				</div>
         <div className='col-sm'>
 					<SmallBodyList name="SubCategories" records={subCategoryOptions} 
           createFunction={createSubCategory} 
           refreshFunction={refreshAdminPage} 
-          deleteFunction={deleteSubCategory} editFunction={editSubCategory} userId={props.userId} 
-          backend_url={props.backend_url} 
-          bearerToken={props.bearerToken}/>
+          deleteFunction={deleteSubCategory} editFunction={editSubCategory}
+          backend_url={props.backend_url}/>
 				</div>
 		  </div>
     </div>

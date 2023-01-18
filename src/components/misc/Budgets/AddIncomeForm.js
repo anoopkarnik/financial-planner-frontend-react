@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState,useContext} from 'react';
+import { UserContext } from '../../../context/UserContext';
 
 const AddIncomeForm = (props) => {
 
 	const [name, setName] = useState('');
 	const [income, setIncome] = useState('');
+	const {user, setUser} = useContext(UserContext);
 
 	const onSubmit =() =>{
-		console.log(props.userId,props.bearerToken,name,income)
-		props.createIncome(props.userId,props.backend_url,props.bearerToken,name,income);
+		console.log(user.id,'Bearer '+user.accessToken,name,income)
+		props.createIncome(user.id,props.backend_url,'Bearer '+user.accessToken,name,income);
 	}
 
 	return (
@@ -40,7 +42,7 @@ const AddIncomeForm = (props) => {
 				<div className='col-sm text-center'>
 					<button type='submit' className='btn btn-secondary mt-3'>
 						Save
-					</button>
+					</button >
 				</div>
 			</div>
 		</form>

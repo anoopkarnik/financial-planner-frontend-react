@@ -1,8 +1,9 @@
-import React,{useState,useEffect} from 'react'
+import React,{useState,useEffect,useContext} from 'react'
 import { getFunds,getFundSummary } from '../api/FundAPI';
 import TopBoxData from '../misc/Funds/TopBoxData';
 import FundItem from '../misc/Funds/FundItem';
 import AddFundForm from '../misc/Funds/AddFundForm';
+import { UserContext } from '../../context/UserContext';
 
 const FundsPage = (props) => {
 
@@ -10,10 +11,11 @@ const FundsPage = (props) => {
     const [funds, setFunds] = useState([]);
     const [fundSummary, setFundSummary] = useState('');
     const [showAddFund, setShowAddFund] = useState(false);
+    const {user, setUser} = useContext(UserContext);
 
 
     useEffect(() => {
-        refreshBudgetsPage(props.userId,props.backend_url,props.bearerToken);
+        refreshBudgetsPage(user.id,props.backend_url,'Bearer '+user.accessToken);
       }, []);
 
 const refreshBudgetsPage = async(userId,backend_url,bearerToken) =>{
@@ -54,14 +56,12 @@ const refreshBudgetsPage = async(userId,backend_url,bearerToken) =>{
         {funds.map((fund)=>(
 					<FundItem item={fund}
           refreshFunction={refreshBudgetsPage} 
-          userId={props.userId} backend_url={props.backend_url} 
-          bearerToken={props.bearerToken}/>
+          backend_url={props.backend_url}/>
         ))}
 				</div>
 		  </div>
       <h3 onClick={()=>{setShowAddFund(!showAddFund)}} className='mt-3 text-center'><div className='btn btn-secondary btn-lg'>Add Fund</div></h3>
-      {showAddFund?<AddFundForm backend_url={props.backend_url}  bearerToken={props.bearerToken} 
-      userId={props.userId}/>:null}
+      {showAddFund?<AddFundForm backend_url={props.backend_url}/>:null}
     </div>
   )
 }

@@ -10,39 +10,37 @@ import React,{useEffect, useState} from 'react'
 import AdminPage from './components/pages/AdminPage';
 import FundsPage from './components/pages/FundsPage';
 import SigninPage from './components/pages/SigninPage';
-import { signin } from './components/api/AuthenticationAPI';
+
 import SignupPage from './components/pages/SignupPage';
+import { UserContext } from './context/UserContext';
 
 function App() {
-	const backend_url = 'http://localhost:8082';
-    const [userId,setUserId] = useState('');
-	const [bearerToken,setBearerToken] = useState('');
-	const [name, setName] = useState('');
-	const [email,setEmail] = useState('');
 
+	const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")) || "");
 
-	const refreshApp = async(name,password) =>{
-		const data = await signin(backend_url,name,password);
-		console.log(data.id);
-		setUserId(data.id);
-		setBearerToken('Bearer '+data.accessToken);
-		setName(data.name);
-		setEmail(data.email);
+	const backend_url = 'http://65.0.12.84:8082';
+
+	const setUserInfo = (data) =>{
+		localStorage.setItem("user", JSON.stringify(data));
+		setUser(data);
 	}
+	console.log(user)
 
   	return (
 		<BrowserRouter>
+			<UserContext.Provider value={{user,setUser: setUserInfo}}>
 				<Layout>
 					<Routes>
-						<Route path="/" element={<SigninPage refreshApp={refreshApp}/>}/>
-						<Route path="/transactions" element={<TransactionsPage backend_url={backend_url} userId={userId} bearerToken={bearerToken}/>}/>
-						<Route path="/accounts" element={<AccountsPage backend_url={backend_url} userId={userId} bearerToken={bearerToken}/>}/>
-						<Route path="/budget" element={<BudgetsPage backend_url={backend_url} userId={userId} bearerToken={bearerToken}/>}/>
-						<Route path="/portfolio" element={<FundsPage backend_url={backend_url} userId={userId} bearerToken={bearerToken}/>}/>
-						<Route path="/admin" element={<AdminPage backend_url={backend_url} userId={userId} bearerToken={bearerToken}/>}/>
-						<Route path="/signup" element={<SignupPage backend_url={backend_url} refreshApp={refreshApp} bearerToken={bearerToken}/>}/>
+						<Route path="/" element={<SigninPage backend_url={backend_url}/>}/>
+						<Route path="/transactions" element={<TransactionsPage backend_url={backend_url}/>}/>
+						<Route path="/accounts" element={<AccountsPage backend_url={backend_url}/>}/>
+						<Route path="/budget" element={<BudgetsPage backend_url={backend_url}/>}/>
+						<Route path="/portfolio" element={<FundsPage backend_url={backend_url}/>}/>
+						<Route path="/admin" element={<AdminPage backend_url={backend_url}/>}/>
+						<Route path="/signup" element={<SignupPage backend_url={backend_url}/>}/>
 					</Routes>
 				</Layout>
+			</UserContext.Provider>
 		</BrowserRouter>
    
   	);

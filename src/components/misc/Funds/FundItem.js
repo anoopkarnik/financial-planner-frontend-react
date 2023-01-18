@@ -1,7 +1,8 @@
-import React,{useState} from 'react'
+import React,{useState,useContext} from 'react'
 import { TiDelete } from 'react-icons/ti';
 import { deleteFunds,updateAmountNeeded,
   updateAmountAllocated } from '../../api/FundAPI';
+import { UserContext } from '../../../context/UserContext';
 
 const FundItem = (props) => {
 
@@ -9,11 +10,12 @@ const FundItem = (props) => {
   const [isEditingNeeded,setIsEditingNeeded] = useState(false);
   const [amountAllocated,setAmountAllocated] = useState(props.item.amountAllocated);
   const [amountNeeded,setAmountNeeded] = useState(props.item.amountNeeded);
+  const {user, setUser} = useContext(UserContext);
 
   const onEditAllocated = async() =>{
 		if(isEditingAllocated){
-			await updateAmountAllocated(props.item.id,props.backend_url,props.bearerToken,amountAllocated)
-      await props.refreshFunction(props.userId,props.backend_url,props.bearerToken)
+			await updateAmountAllocated(props.item.id,props.backend_url,'Bearer '+user.accessToken,amountAllocated)
+      await props.refreshFunction(user.id,props.backend_url,'Bearer '+user.accessToken)
 		}
 		setIsEditingAllocated(!isEditingAllocated);
 	}

@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState,useContext } from 'react';
+import { UserContext } from '../../../context/UserContext';
 
 const AddBudgetForm = (props) => {
 
@@ -7,11 +8,12 @@ const AddBudgetForm = (props) => {
 	const [expenseName, setExpenseName] = useState('');
 	const [categoryName, setCategoryName] = useState('');
 	const [subCategoryName, setSubCategoryName] = useState('');
+	const {user, setUser} = useContext(UserContext);
 
 	const onSubmit =() =>{
-		console.log(props.userId,props.bearerToken,name,cost,expenseName,
+		console.log(user.id,'Bearer '+user.accessToken,name,cost,expenseName,
 			categoryName,subCategoryName)
-		props.createBudget(props.userId,props.backend_url,props.bearerToken,name,cost,expenseName,
+		props.createBudget(user.id,props.backend_url,'Bearer '+user.accessToken,name,cost,expenseName,
 			categoryName,subCategoryName);
 	}
 
@@ -79,7 +81,7 @@ const AddBudgetForm = (props) => {
 				<div className='col-sm text-center'>
 					<button type='submit' className='btn btn-secondary mt-3'>
 						Save
-					</button>
+					</button >
 				</div>
 			</div>
 		</form>

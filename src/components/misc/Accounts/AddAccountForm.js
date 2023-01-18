@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState,useContext } from 'react';
+import { UserContext } from '../../../context/UserContext';
 
 const AddAccountForm = (props) => {
 
@@ -8,9 +9,12 @@ const AddAccountForm = (props) => {
 	const [liquidity, setLiquidity] = useState('');
 	const [freeLiquidity, setFreeLiquidity] = useState('');
 
+	const {user,setUser} = useContext(UserContext);
+
 	const onSubmit =() =>{
-		props.createAccount(props.userId,props.backend_url,props.bearerToken,name,balance,
+		props.createAccount(user.id,props.backend_url,'Bearer '+user.accessToken,name,balance,
 			accountName,liquidity,freeLiquidity);
+		props.refreshFunction(user.id,props.backend_url,'Bearer '+user.accessToken)
 	}
 
 	

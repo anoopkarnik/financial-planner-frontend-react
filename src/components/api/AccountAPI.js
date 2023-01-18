@@ -39,7 +39,7 @@ export const getTotalAccountBalances = async(userId,backend_url,bearerToken) =>{
 }
 
 
-export const deleteAccount = async(backend_url,id,bearerToken) =>{
+export const deleteAccount = async(backend_url,bearerToken,id) =>{
     await axios.delete(backend_url+'/api/accounts?id='+id,{
       headers:{Authorization:bearerToken}
     })

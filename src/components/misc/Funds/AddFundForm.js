@@ -1,16 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState,useContext } from 'react';
 import { createFund } from '../../api/FundAPI';
+import { UserContext } from '../../../context/UserContext';
 
 const AddFundForm = (props) => {
 
 	const [name, setName] = useState('');
 	const [amountAllocated, setAmountAllocated] = useState('');
 	const [amountNeeded, setAmountNeeded] = useState('');
+	const {user, setUser} = useContext(UserContext);
 
 	const onSubmit = async () =>{
-		console.log(props.userId,props.bearerToken,name,amountAllocated,amountNeeded)
-		await createFund(props.userId,props.backend_url,props.bearerToken,name,
-			amountAllocated,amountNeeded);
+		console.log(user.id,'Bearer '+user.accessToken,name,amountAllocated,amountNeeded)
+		await createFund(user.id,props.backend_url,'Bearer '+user.accessToken,
+		name,amountAllocated,amountNeeded);
 	}
 
 
@@ -54,7 +56,7 @@ const AddFundForm = (props) => {
 					<div className='col-sm text-center'>
 						<button type='submit' className='btn btn-secondary mt-3'>
 							Save
-						</button>
+						</button >
 					</div>
 				</div>
 		</form>

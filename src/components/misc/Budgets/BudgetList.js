@@ -1,14 +1,16 @@
-import React,{useState} from 'react'
+import React,{useState,useContext} from 'react'
 import {getMonthlyBudget} from '../../api/BudgetAPI';
 import BudgetItem from './BudgetItem';
+import { UserContext } from '../../../context/UserContext';
 
 const BudgetList = (props) => {
 
     const [showItems,setShowItems] = useState(false)
     const [items,setItems] = useState([])
+    const {user, setUser} = useContext(UserContext);
 
     const onShow = async() =>{
-        const monthlyBudgets = await getMonthlyBudget(props.userId,props.name,props.backend_url,props.bearerToken)
+        const monthlyBudgets = await getMonthlyBudget(user.id,props.name,props.backend_url,'Bearer '+user.accessToken)
         setItems(monthlyBudgets);
     };
 
@@ -33,8 +35,8 @@ const BudgetList = (props) => {
       			<div class="card-body">
 	  				<ul className='list-group'>
 						{items.map((item)=>(
-              <BudgetItem item={item} userId={props.userId} 
-              backend_url={props.backend_url} bearerToken={props.bearerToken} 
+              <BudgetItem item={item}
+              backend_url={props.backend_url}
               refreshFunction={props.refreshFunction} onShow={onShow} 
               accountOptions={props.accountOptions} 
               subAccountOptions={props.subAccountOptions}/>

@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState,useContext } from 'react';
 import { createTransaction } from '../../api/TransactionAPI';
+import { UserContext } from '../../../context/UserContext';
 
 const AddTransactionForm = (props) => {
 
@@ -7,10 +8,11 @@ const AddTransactionForm = (props) => {
 	const [cost, setCost] = useState('');
 	const [accountName, setAccountName] = useState('');
 	const [subAccountName, setSubAccountName] = useState('');
+	const {user, setUser} = useContext(UserContext);
 
 	const onSubmit =() =>{
-		console.log(props.userId,props.bearerToken,name,cost,accountName,	subAccountName)
-		createTransaction(props.userId,props.backend_url,props.bearerToken,name,cost,props.expenseName,accountName,
+		console.log(user.id,'Bearer '+user.accessToken,name,cost,accountName,	subAccountName)
+		createTransaction(user.id,props.backend_url,'Bearer '+user.accessToken,name,cost,props.expenseName,accountName,
 			props.categoryName,props.subCategoryName,subAccountName);
 	}
 

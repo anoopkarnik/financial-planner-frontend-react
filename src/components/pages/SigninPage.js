@@ -1,18 +1,23 @@
 import React,{useState,useEffect} from 'react'
 import {useNavigate } from 'react-router-dom';
+import { useAuth } from '../../context/UserContext';
+import { signin } from '../api/AuthenticationAPI';
 
 const SigninPage = (props) => {
 
   const navigate = useNavigate();
 
+	const [isLoggedIn, setLoggedIn] = useState(false);
+	const [isError, setIsError] = useState(false);
 
-	
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
+	const {setUser} = useAuth();
 
     const onSubmit = async()=>{
-      await props.refreshApp(name,password);
-
+      const user = await signin(props.backend_url,name,password)
+	  setUser(user);
+	  setLoggedIn(true);
       navigate('/transactions');
     }
     const onSignup = async()=>{
