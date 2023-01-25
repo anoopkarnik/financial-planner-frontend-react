@@ -53,7 +53,7 @@ const refreshBudgetsPage = async(userId,backend_url,bearerToken) =>{
 				<div className='col-sm'>
 					<TopBoxPercentage refreshFunction={refreshBudgetsPage} name={budgetPlan.expenseName} value1={budgetPlan.transactionPercentage} 
           id={budgetPlan.id} value2={budgetPlan.planPercentage} 
-          backend_url={props.backend_url}/>
+          backend_url={props.backend_url} />
 				</div>
 			))}
       <h3 className='mt-3 text-center'>Monthly Income</h3>

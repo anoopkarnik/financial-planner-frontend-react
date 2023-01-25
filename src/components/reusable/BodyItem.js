@@ -36,7 +36,7 @@ const BodyItem = (props) => {
 			
 			{props.record.name}
 			<div>
-				<span onDoubleClick={onEdit} className='badge-primary badge-pill mr-3'>
+				<span onDoubleClick={onEdit} className='badge-primary badge-pill mr-3' data-toggle="tooltip" data-placement="top" title="Double Click to edit the record on accounts tab">
 					{isEditing?
 						<input required='required' Name='text' 
 							id='balance' placeholder='Balance' value={balance} 
@@ -45,7 +45,7 @@ const BodyItem = (props) => {
 						<>Rs {props.record.cost}</>
 					}
 				</span>
-				<TiDelete size='1.5em' onClick={onDelete}></TiDelete>
+				<TiDelete size='1.5em' onClick={onDelete} data-toggle="tooltip" data-placement="top" title="Delete this record"></TiDelete>
 			</div>
     </li>
   )

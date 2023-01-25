@@ -15,9 +15,7 @@ const SignupPage = (props) => {
 
     const onSubmit = async()=>{
       await signup(props.backend_url,name,email,password,role)
-      await props.refreshApp(name,password);
-
-      navigate('/transactions');
+      navigate('/');
     } 
 
   return (

@@ -24,7 +24,7 @@ const SmallBodyItem = (props) => {
     
   return (
     <li className='list-group-item d-flex justify-content-between align-items-center'>
-			<div onDoubleClick={onEdit} >
+			<div onDoubleClick={onEdit} data-toggle="tooltip" data-placement="top" title="Double click to edit the name">
 					{isEditing?
 						<input required='required' Name='text' 
 							id='name' placeholder='name' value={name} 
@@ -32,7 +32,7 @@ const SmallBodyItem = (props) => {
 						</input>:
 						<>{props.record.name}</>
 					}
-				<TiDelete size='1.5em' onClick={onDelete}></TiDelete>
+				<TiDelete size='1.5em' onClick={onDelete} data-toggle="tooltip" data-placement="top" title="Delete this record"></TiDelete>
 			</div>
     </li>
   )

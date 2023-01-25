@@ -21,7 +21,7 @@ const BudgetList = (props) => {
 
   return (
     <div id="accordion">
-        <div class="card">
+        <div class="card" data-toggle="tooltip" data-placement="top" title="Total transactions done in this expense type | Total planned budget transactions in this expense type | Total Budget allotted to this expense type">
             <li onClick={completeShow} className='card-header gray-button list-group-item d-flex justify-content-between align-items-center' id="headingOne">
                     {props.name}
 		            <div>

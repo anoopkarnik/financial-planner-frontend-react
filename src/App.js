@@ -13,12 +13,13 @@ import SigninPage from './components/pages/SigninPage';
 
 import SignupPage from './components/pages/SignupPage';
 import { UserContext } from './context/UserContext';
+import { ConfigContext } from './context/ConfigContext';
 
 function App() {
 
 	const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")) || "");
-
-	const backend_url = 'http://65.0.12.84:8082';
+	const [config,setConfig] = useState(false)
+	const backend_url = 'http://localhost:8082';
 
 	const setUserInfo = (data) =>{
 		localStorage.setItem("user", JSON.stringify(data));
@@ -28,19 +29,21 @@ function App() {
 
   	return (
 		<BrowserRouter>
-			<UserContext.Provider value={{user,setUser: setUserInfo}}>
-				<Layout>
-					<Routes>
-						<Route path="/" element={<SigninPage backend_url={backend_url}/>}/>
-						<Route path="/transactions" element={<TransactionsPage backend_url={backend_url}/>}/>
-						<Route path="/accounts" element={<AccountsPage backend_url={backend_url}/>}/>
-						<Route path="/budget" element={<BudgetsPage backend_url={backend_url}/>}/>
-						<Route path="/portfolio" element={<FundsPage backend_url={backend_url}/>}/>
-						<Route path="/admin" element={<AdminPage backend_url={backend_url}/>}/>
-						<Route path="/signup" element={<SignupPage backend_url={backend_url}/>}/>
-					</Routes>
-				</Layout>
-			</UserContext.Provider>
+			<ConfigContext.Provider value={{config,setConfig}}>
+				<UserContext.Provider value={{user,setUser: setUserInfo}}>
+					<Layout>
+						<Routes>
+							<Route path="/" element={<SigninPage backend_url={backend_url}/>}/>
+							<Route path="/transactions" element={<TransactionsPage backend_url={backend_url}/>}/>
+							<Route path="/accounts" element={<AccountsPage backend_url={backend_url}/>}/>
+							<Route path="/budget" element={<BudgetsPage backend_url={backend_url}/>}/>
+							<Route path="/portfolio" element={<FundsPage backend_url={backend_url}/>}/>
+							<Route path="/admin" element={<AdminPage backend_url={backend_url}/>}/>
+							<Route path="/signup" element={<SignupPage backend_url={backend_url}/>}/>
+						</Routes>
+					</Layout>
+				</UserContext.Provider>
+			</ConfigContext.Provider>
 		</BrowserRouter>
    
   	);

@@ -37,7 +37,7 @@ const FundItem = (props) => {
 return (
     <li className='list-group-item d-flex justify-content-between align-items-center'>	
     {props.item.name}
-    <div>
+    <div data-toggle="tooltip" data-placement="top" title="Amount out of the Avaialable allocated | Total amount needed for this fund to complete">
     <span onDoubleClick={onEditAllocated} className='badge-primary badge-pill mr-3'>
         {isEditingAllocated?
         <input required='required' Name='text' id='amountAllocated' 

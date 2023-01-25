@@ -1,7 +1,6 @@
 import React,{useState,useContext} from 'react'
 import { TiDelete } from 'react-icons/ti';
 import { deleteIncome} from '../../api/BudgetAPI';
-import AddTransactionForm from './AddTransactionForm';
 import { UserContext } from '../../../context/UserContext';
 
 const IncomeItem = (props) => {

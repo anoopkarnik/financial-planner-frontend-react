@@ -27,10 +27,10 @@ const BudgetItem = (props) => {
 
 return (
   <div>
-    <li className='list-group-item d-flex justify-content-between align-items-center'>	
+    <li className='list-group-item d-flex justify-content-between align-items-center' data-toggle="tooltip" data-placement="top" title="Total Transactions done this month for this sub Category Type | Total Budget Allotted to this sub Category">	
     {props.item.subCategoryName} ({props.item.categoryName})
     <div>
-      <span onDoubleClick={onEdit} className='badge-primary badge-pill mr-3'>
+      <span onDoubleClick={onEdit} className='badge-primary badge-pill mr-3' data-toggle="tooltip" data-placement="top" title="Double click to edit the budget allocated to this sub category type" >
         Rs {props.item.amountSpent} | 
         {isEditing?
         <input required='required' Name='text' id='cost' 
@@ -39,7 +39,7 @@ return (
         :<> {props.item.budgetAmount} </>}
       </span>
       <TiDelete size='1.5em' onClick={onDelete}></TiDelete>
-      <button onClick={()=> setShowForm(!showForm)} className='btn btn-secondary col-sm'>
+      <button onClick={()=> setShowForm(!showForm)} className='btn btn-secondary col-sm' data-toggle="tooltip" data-placement="top" title="Add a transaction for this subcategory type">
 					Add
 			</button>
     </div>
@@ -50,7 +50,6 @@ return (
     expenseName={props.item.expenseName} 
     categoryName={props.item.categoryName} 
     subCategoryName={props.item.subCategoryName} 
-    userId={props.userId} 
     backend_url={props.backend_url}/>:null}
   </div>
   

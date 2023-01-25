@@ -20,8 +20,8 @@ const TopBoxPercentage = (props) => {
 
 
   return (
-    <div className='alert alert-primary'>
-        <span onDoubleClick={onEdit}>{props.name}: {props.value1} | 
+    <div className='alert alert-primary' data-toggle="tooltip" data-placement="top" title="Transactions/Income Percentage already done in this expense type | Budget Percentage(out of Income) allocated to this expense type">
+        <span onDoubleClick={onEdit} data-toggle="tooltip" data-placement="top" title="Double click to edit budget Percentage">{props.name}: {props.value1} | 
         {isEditing?
         <input required='required' Name='text' id='planPercentage' 
         placeholder='planPercentage' value={planPercentage} 

@@ -16,7 +16,7 @@ getTotalSubCategories,getTotalSubAccounts,
 
 const TransactionsPage = (props) => {
 
-  const totalExpenses = "Total Expenses";
+  const totalExpenses = "Total Expenses (based on below displayed transactions)";
   const startDateKey = "Start Date";
   const endDateKey = "End Date";
   const [showAddTransaction,setShowAddTransaction] = useState(false)
@@ -80,7 +80,7 @@ const TransactionsPage = (props) => {
     <div>
       <div className='row mt-3'>
 				<div className='col-sm'>
-					<TopBoxData name={totalExpenses} value={expenses}/>
+					<TopBoxData name={totalExpenses} value={expenses} />
 				</div>
 			</div>
       <h3 className='mt-3 text-center'>Transactions</h3>
